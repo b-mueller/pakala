@@ -1,2 +1,7 @@
 *.pyc
 __pycache__/
+.idea/
+build/
+dist/
+pakala.egg-info/
+.DS_Store
