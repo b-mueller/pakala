@@ -1,11 +1,10 @@
-import collections
-import numbers
 import time
 
 import claripy
+from eth.vm import code_stream
 
 from pakala import memory
-from pakala import utils
+
 
 ENV_VARS = (
     ("caller", None, None),
@@ -24,7 +23,11 @@ ENV_VARS = (
 
 class Env(object):
     def __init__(self, code, **kwargs):
-        self.code = code
+        if isinstance(code, code_stream.CodeStream):
+            self.code = code
+        else:
+            self.code = code_stream.CodeStream(code)
+
         self.calldata = memory.CalldataMemory()
         self.block_hashes = {}
 

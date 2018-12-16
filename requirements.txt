@@ -1,4 +1,4 @@
-ethereum
+trinity
 claripy
 mock
 web3

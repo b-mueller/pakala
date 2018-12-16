@@ -1,10 +1,8 @@
-import collections
 import logging
 import numbers
 
 import claripy
 
-from pakala import env
 from pakala import utils
 
 from web3 import Web3
@@ -105,18 +103,18 @@ class BaseAnalyzer(object):
         )
 
         # Suicide
-        if state.suicide_to is not None:
+        if state.selfdestruct_to is not None:
             constraints = (
                 extra_constraints
                 + read_constraints
                 + [
                     final_balance >= self.min_wei_to_receive,
-                    state.suicide_to[159:0] == self.caller[159:0],
+                    state.selfdestruct_to[159:0] == self.caller[159:0],
                 ]
             )
-            logger.debug("Check for suicide bug with constraints %s", constraints)
+            logger.debug("Check for selfdestruct bug with constraints %s", constraints)
             if state.solver.satisfiable(extra_constraints=constraints):
-                logger.info("Found suicide bug.")
+                logger.info("Found selfdestruct bug.")
                 return True
 
         if total_received_by_me is utils.bvv(0):

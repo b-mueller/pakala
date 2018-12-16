@@ -9,8 +9,6 @@ import collections
 import json
 import lzma
 
-from pakala import sm
-
 
 # TODO: Don't hardcode it...
 SIGNATURE_FILE = "../signatures.json.xz"
@@ -53,8 +51,8 @@ class HumanSummarizer:
             for state in states:
                 if state.calls:
                     flags.add("call")
-                if state.suicide_to:
-                    flags.add("suicide")
+                if state.selfdestruct_to:
+                    flags.add("selfdestruct")
 
                 for s in self.sm.partial_outcomes:
                     if state is s:
