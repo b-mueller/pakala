@@ -7,7 +7,6 @@ money to that method?...).
 
 import collections
 import json
-import lzma
 
 
 # TODO: Don't hardcode it...
@@ -16,7 +15,7 @@ SIGNATURE_FILE = "../signatures.json.xz"
 
 class HumanSummarizer:
     def __init__(self, symbolic_machine):
-        self.signatures = json.load(lzma.open(SIGNATURE_FILE))
+        self.signatures = {}
         self.signatures["0x00000000"] = "fallback"
         for magic, signature in self.signatures.items():
             assert isinstance(signature, str)
